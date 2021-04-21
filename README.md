@@ -1,6 +1,3 @@
-# ivory-campo_minado
-Teste técnico para a empresa Ivory
-
 # Campo Minado
 O jogo foi bastante difundido pelo sistema operacional Windows nos anos 90.
 Robert Donner e Curt Johnson foram contratados pela Microsoft em 1989. Curt tinha escrito um programa para o sistema operacional da IBM(OS/2), cujo objetivo era você conseguir atravessar um campo minado de um canto da tela para outro ileso. Robert queria escrever um jogo para Windows para aprimorar sua programação no sistema operacional, e Curt deixou que ele utilizasse o seu código fonte como ponto de partida. Mais tarde a Microsoft decidiu lançar uma coleção de jogos para sua nova plataforma e os funcionários foram convidados a enviar jogos. O campo minado foi enviado e um dos escolhidos a pertencer ao sistema operacional.
@@ -64,4 +61,123 @@ Como todos sabem, uma string é um vetor de caracteres, portanto o objetivo do a
 3. O algoritimo deve analisar a string que representa o tabuleiro, não é valido fixar a abertura das posições que não possuem minas terrestres pela analise do algoritmo `campo-minado.js`;
 4. Não é para criar uma aplicação onde o usuário escolha qual posição abrir, é para ser um algoritimo autonomo que realize as jogadas;
 5. Exemplo de um algotimo realizando as jogadas até encontrar todas as posições sem minas terrestres:
+```
+----------- Início do jogo -----------
+00000001-
+000000011
+122100000
+---322110
+-------21
+---------
+---------
+---------
+---------
+----------- Status: Jogo em aberto -----------
+00000001-
+000000011
+122100000
+---322110
+-------21
+---------
+---------
+---------
+---------
+Bomba encontrada: linha(1) / coluna(9)
+Bomba encontrada: linha(4) / coluna(3)
+Bomba encontrada: linha(4) / coluna(2)
+Bomba encontrada: linha(5) / coluna(7)
+----------- Status: Jogo em aberto -----------
+00000001-
+000000011
+122100000
+---322110
+-------21
+---------
+---------
+---------
+---------
+Abrindo casa: linha(4) / coluna(1)
+----------- Status: Jogo em aberto -----------
+00000001-
+000000011
+122100000
+1--322110
+-------21
+---------
+---------
+---------
+---------
+Abrindo casa: linha(5) / coluna(2)
+Abrindo casa: linha(5) / coluna(1)
+----------- Status: Jogo em aberto -----------
+00000001-
+000000011
+122100000
+1--322110
+12-----21
+---------
+---------
+---------
+---------
+Abrindo casa: linha(5) / coluna(6)
+----------- Status: Jogo em aberto -----------
+00000001-
+000000011
+122100000
+1--322110
+12---4-21
+---------
+---------
+---------
+---------
+Bomba encontrada: linha(5) / coluna(5)
+Bomba encontrada: linha(5) / coluna(4)
+Abrindo casa: linha(6) / coluna(2)
+Abrindo casa: linha(6) / coluna(1)
+----------- Status: Jogo em aberto -----------
+00000001-
+000000011
+122100000
+1--322110
+123--4-21
+0013-----
+00012222-
+000000011
+000000000
+Bomba encontrada: linha(6) / coluna(5)
+Bomba encontrada: linha(6) / coluna(6)
+Abrindo casa: linha(6) / coluna(7)
+----------- Status: Jogo em aberto -----------
+00000001-
+000000011
+122100000
+1--322110
+123--4-21
+0013--3--
+00012222-
+000000011
+000000000
+Bomba encontrada: linha(6) / coluna(8)
+Bomba encontrada: linha(7) / coluna(9)
+----------- Status: Jogo em aberto -----------
+00000001-
+000000011
+122100000
+1--322110
+123--4-21
+0013--3--
+00012222-
+000000011
+000000000
+Abrindo casa: linha(6) / coluna(9)
+----------- Status: Vitoria -----------
+00000001-
+000000011
+122100000
+1--322110
+123--4-21
+0013--3-2
+00012222-
+000000011
+000000000
 ```
