@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+        <title></title>
+        <script src="js/campo-minado.js"></script>
+        <h2>----------- Início do jogo -----------</h2>
+    </head>
+    <body>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+        <div id="exibir-execucao"></div>
+
+        <button onclick="execucao()">Simular campo-minado</button>
+
+        <script>
+            
+            var campoMinado = new CampoMinado();
+            
+            document.getElementById('exibir-execucao').innerHTML += '<pre>' + campoMinado.Tabuleiro() + '</pre>';
+            
+        // INICIO DA CODIFICAÇÃO
+
+            var tamanhoL1 = 9; var tamanhoL2 = 9;
+            
+            const variavelerro = '*'
+
+            var matriz = [];
+
+            var campo_minadoX = [];
+            var campo_minadoY = [];
+
+            function execucao(){
+                verificaLados();
+            }
+
+            function verificaLados() {
+                matriz = updatecampominado();
+
+                for(var x = 0; x < tamanhoL1; x++){
+                    
+                    for(var y = 0; y < tamanhoL2; y++){
+                        if(matriz[x][y] === variavelerro || matriz[x][y] === '-' || matriz[x][y] === '0') continue;
+                        
+                        var camposM = matriz[x][y];
+
+                        var vazioX = []; var vazioY = [];
+
+                        var checkL1 = [-1, 0, 1]; var checkL2 = [-1, 0, 1];  
+
+                        if(x === 0){
+                            checkL1.shift();
+                        }
+                        if(x === tamanhoL1 - 1){
+                            checkL1.pop();
+                        }
+                        if(y === 0){
+                            checkL2.shift();
+                        }
+                        if(y === tamanhoL2 - 1){
+                            checkL2.pop();
+                        }
+
+                        for(var vX = 0; vX < checkL1.length; vX++){
+                            for(var vY = 0; vY < checkL2.length; vY++){
+                                if(matriz[x + checkL1[vX]][y + checkL2[vY]] === variavelerro){
+                                    camposM--;
+
+                                    continue
+                                }
+
+                                if(matriz[x + checkL1[vX]][y + checkL2[vY]] === '-'){
+                                    vazioX.push(x + checkL1[vX]);
+                                    vazioY.push(y + checkL2[vY]);
+
+                                    continue
+                                }
+                                 
+                            }
+                        }
+
+                        if(vazioX.length == camposM){
+                            for(var i = 0; i < vazioX.length; i++){
+                                campo_minadoX.push(vazioX[i]);
+                                campo_minadoY.push(vazioY[i]);
+
+                                matriz[vazioX[i]][vazioY[i]] = variavelerro;
+
+                            }
+                        }
+
+                        if(camposM === 0 && vazioX.length > 0){     
+                            for(var i = 0; i < vazioX.length; i++){
+                                var x = vazioX[i] + 1;
+                                var y = vazioY[i] + 1;
+
+                                console.log(x + ',' + y)
+
+                                campoMinado.Abrir(x, y)
+
+                                updatecampominado()
+                            }
+
+                            continue
+                        }
+
+                    }
+                }
+
+                var status = campoMinado.JogoStatus();
+
+                if(status === 0){
+                    verificaLados();
+                }
+                if(status === 1){
+                    document.querySelector('pre').innerHTML = campoMinado.Tabuleiro();
+                }
+            }
+
+            function updatecampominado() {
+                var campoString = campoMinado.Tabuleiro().replace(/(\r\n|\n|\r)/gm, "")
+
+                for(var x = 0; x < tamanhoL1; x++){
+                    matrizY = []
+                    for(var y = 0; y < tamanhoL2; y++){
+                        matrizY[y] = campoString[y + (x * tamanhoL1)];
+                    }
+                    matriz[x] = matrizY;
+                }
+
+                matriz = camposminados(matriz);
+
+                return matriz;
+            }
+
+            function camposminados() {
+                for(var i = 0; i < campo_minadoX.length; i++){
+                    matriz[campo_minadoX[i]][campo_minadoY[i]] = variavelerro;
+                }
+
+                return matriz;
+            }
+
+            function status()
+            {
+            alert("STATUS: 1 - VITÓRIA");
+            }
+        </script>
+    </body>
+</html>
